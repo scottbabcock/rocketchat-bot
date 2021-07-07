@@ -1,6 +1,8 @@
 import { api, driver } from '@rocket.chat/sdk';
 import dotenv from 'dotenv';
 
+import { CommandHandler } from './commands/CommandHandler';
+
 dotenv.config();
 
 const {
@@ -24,5 +26,6 @@ if (!ROCKETCHAT_URL || !ROCKETCHAT_USER || !ROCKETCHAT_PASSWORD) {
 	// Join rooms and send welcome message.
 	await driver.joinRooms(['general']);
 	await driver.subscribeToMessages();
+	driver.reactToMessages(CommandHandler);
 	await driver.sendToRoom("I'm alive!", 'general');
 })();
