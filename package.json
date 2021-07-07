@@ -1,0 +1,35 @@
+{
+  "name": "rocketchat-bot",
+  "version": "1.0.0",
+  "description": "Usage:",
+  "main": "index.js",
+  "scripts": {
+    "prebuild": "rm -rf ./prod",
+    "build": "tsc",
+    "start": "node ./prod/bot.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/scottbabcock/rocketchat-bot.git"
+  },
+  "keywords": [
+    "rocketchat",
+    "bot",
+    "tutorial"
+  ],
+  "author": "Scott Babcock",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/scottbabcock/rocketchat-bot/issues"
+  },
+  "homepage": "https://github.com/scottbabcock/rocketchat-bot#readme",
+  "dependencies": {
+    "@rocket.chat/sdk": "^0.2.9-2",
+    "dotenv": "^10.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^16.0.0",
+    "typescript": "^4.3.5"
+  }
+}
