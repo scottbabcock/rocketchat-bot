@@ -18,14 +18,14 @@ export const CommandHandler: ICallback = async (err: unknown, ...messages: IMess
 	}
 
 	const roomName = await driver.getRoomName(message.rid);
-	const [prefix, commandName] = message.msg.split(' ');
+	const [prefix, commandName = ''] = message.msg.split(' ');
 	if (prefix !== BOT.prefix) {
 		return;
 	}
 
-	for (const Command of CommandList) {
-		if (commandName === Command.name) {
-			await Command.command(message, roomName);
+	for (const command of CommandList) {
+		if ([command.name, ...command.aliases ?? []].findIndex(name => commandName.toLocaleLowerCase() === name.toLocaleLowerCase()) > -1) {
+			await command.command(message, roomName);
 			return;
 		}
 	}

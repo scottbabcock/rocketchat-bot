@@ -6,6 +6,7 @@ import { ICommand } from '../interfaces';
 
 export const help: ICommand = {
 	name: 'help',
+	aliases: [''],
 	description: `Lists information on the bot's list of commands.`,
 	parameters: ['?command'],
 	usage: [
@@ -35,11 +36,18 @@ export const help: ICommand = {
 _Description_
 ${command.description}`;
 
+			if (command.aliases?.filter(n => n).length) {
+				response += `
+
+_Aliases_
+${command.aliases.join(' ')}`;
+			}
+
 			if (command.parameters?.length) {
 				response += `
 
 _Parameters_
-${command.parameters?.join(" ") ?? "none"}`;
+${command.parameters.join(' ')}`;
 			}
 
 			if (command.usage?.length) {
