@@ -1,6 +1,6 @@
 import { driver } from '@rocket.chat/sdk';
 
-import { ICommand } from '../interfaces/ICommand';
+import { ICommand } from '../interfaces';
 
 export const ping: ICommand = {
 	name: 'ping',

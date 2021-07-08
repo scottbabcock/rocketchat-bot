@@ -1,7 +1,8 @@
 import { driver } from '@rocket.chat/sdk';
 import dotenv from 'dotenv';
 
-import { getCommandHandler } from './commands/CommandHandler';
+import { CommandHandler } from './commands';
+import { IBot } from './interfaces';
 
 dotenv.config();
 
@@ -10,14 +11,20 @@ const {
 	ROCKETCHAT_USER,
 	ROCKETCHAT_PASSWORD,
 	ROCKETCHAT_USE_SSL,
-	BOT_PREFIX,
-	BOT_ROOM
+	BOT_NAME,
+	BOT_PREFIX = '!bot'
 } = process.env;
+const ROOMS = (process.env.BOT_ROOMS || 'general').split(',');
 
-if (!ROCKETCHAT_URL || !ROCKETCHAT_USER || !ROCKETCHAT_PASSWORD || !BOT_PREFIX || !BOT_ROOM) {
+if (!ROCKETCHAT_URL || !ROCKETCHAT_USER || !ROCKETCHAT_PASSWORD || !BOT_NAME) {
 	console.error('Missing required environment variables.');
 	process.exit(1);
 }
+
+export const BOT: IBot = {
+	name: BOT_NAME,
+	prefix: BOT_PREFIX,
+};
 
 (async () => {
 	// Connect to server and login.
@@ -25,8 +32,10 @@ if (!ROCKETCHAT_URL || !ROCKETCHAT_USER || !ROCKETCHAT_PASSWORD || !BOT_PREFIX |
 	await driver.login({ username: ROCKETCHAT_USER, password: ROCKETCHAT_PASSWORD });
 
 	// Join rooms and send welcome message.
-	await driver.joinRooms([BOT_ROOM]);
+	await driver.joinRooms(ROOMS);
 	await driver.subscribeToMessages();
-	driver.reactToMessages(getCommandHandler({ prefix: BOT_PREFIX }));
-	await driver.sendToRoom("I'm alive!", BOT_ROOM);
+	driver.reactToMessages(CommandHandler);
+	for (const room of ROOMS) {
+		await driver.sendToRoom(`${BOT_NAME} is online. Use \`${BOT_PREFIX}\` to send commands.`, room);
+	}
 })();
