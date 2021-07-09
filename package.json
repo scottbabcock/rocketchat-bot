@@ -6,7 +6,7 @@
   "scripts": {
     "prebuild": "rm -rf ./prod",
     "build": "tsc",
-    "start": "node ./prod/bot.js",
+    "start": "node -r dotenv/config ./prod/src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
