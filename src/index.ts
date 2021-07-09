@@ -14,7 +14,7 @@ const {
 	BOT_NAME,
 	BOT_PREFIX = '!bot'
 } = process.env;
-const ROOMS = (process.env.BOT_ROOMS || 'general').split(',');
+const ROOMS = (process.env.ROCKETCHAT_ROOMS || 'general').split(',');
 
 if (!ROCKETCHAT_URL || !ROCKETCHAT_USER || !ROCKETCHAT_PASSWORD || !BOT_NAME) {
 	console.error('Missing required environment variables.');
