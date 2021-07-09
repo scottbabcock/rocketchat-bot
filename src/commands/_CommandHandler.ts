@@ -3,7 +3,7 @@ import { ICallback } from '@rocket.chat/sdk/dist/config/driverInterfaces';
 import { IMessage } from '@rocket.chat/sdk/dist/config/messageInterfaces';
 
 import { CommandList } from '.';
-import { BOT } from '../bot';
+import { BOT } from '..';
 
 export const CommandHandler: ICallback = async (err: unknown, ...messages: IMessage[]): Promise<void> => {
 	if (err) {

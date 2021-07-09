@@ -1,7 +1,7 @@
 import { driver } from '@rocket.chat/sdk';
 
 import { CommandList } from '.';
-import { BOT } from '../bot';
+import { BOT } from '..';
 import { ICommand } from '../interfaces';
 
 export const help: ICommand = {
